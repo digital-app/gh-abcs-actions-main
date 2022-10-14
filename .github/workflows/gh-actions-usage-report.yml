@@ -9,9 +9,9 @@ on:
     #        │ │ │ ┌──────── month
     #        │ │ │ │ ┌────── day (week)
     # - cron: '0 1 * * *'
-   push:
+  push:
     branches:
-        - main 
+      - master
   
     
 jobs:
