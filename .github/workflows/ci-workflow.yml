@@ -3,9 +3,9 @@ name: 07-1. CI Workflow
 # Trigger CI for every PR event, when PR has target branch = main
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   # The first job lints the code base
@@ -43,17 +43,16 @@ jobs:
           echo npm test
 
       # Add here the upload-artifact action
-      
+      - shell: bash
+        run: |
+          echo 'Test upload artifact' > output.log
+      - name: Upload output file
+        uses: actions/upload-artifact@v2
+        with:
+          name: output-log-file
+          path: output.log
 
   # If both linting and CI succeeds we want to deploy the code to a test environment
-  - shell: bash
-    run: |
-      echo 'Test upload artifact' > output.log
-  - name: Upload output file
-    uses: actions/upload-artifact@v2
-    with:
-      name: output-log-file
-      path: output.log
 
   deploy-test:
     name: Deploy to test env
